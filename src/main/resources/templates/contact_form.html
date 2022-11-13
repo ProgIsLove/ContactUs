@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style/style.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/characterCount.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/validateNumber.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/validateName.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/validateSurname.js}" defer></script>
+
+    <title>[[${pageTitle}]]</title>
+</head>
+<body>
+<div id="main-container" class="container-fluid">
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <form th:object="${contact}" th:action="@{/contact}" method="post"
+          class="form-horizontal" id="search-owner-form">
+        <input type="hidden" th:field="*{id}"/>
+        <h1>Contact us</h1>
+        <div id="form-pannel" class="pannel-group">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="form-group row col-12">
+                        <label for="Combobox" class="form-label">Kind of Request</label>
+                        <select th:field="*{kindOfRequest.id}" class="form-control form-select" id="Combobox">
+                            <option th:each="t : ${kindOfRequests}"
+                                    th:value="${t.id}"
+                                    th:text="${t.requestName}">Wireframe
+                            </option>
+                        </select>
+                    </div>
+                    <div id="policyDiv" class="form-group row col-12">
+                        <label for="policyNumberFormInput" class="form-label">Policy Number</label>
+                        <input type="text" class="form-control" id="policyNumberFormInput" th:field="*{policyNumber}"
+                               required/>
+                    </div>
+                    <p th:each="err : ${#fields.errors('policyNumber')}" th:text="${err}" class="error"></p>
+                    <div id="nameDiv" class="form-group row col-12">
+                        <label for="nameFormInput" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="nameFormInput" th:field="*{name}"
+                               th:maxlength="${@environment.getProperty('input.name.max.length')}" required/>
+                    </div>
+                    <p th:each="err : ${#fields.errors('name')}" th:text="${err}" class="error"></p>
+                    <div id="surnameDiv" class="form-group row col-12">
+                        <label for="surnameFormInput" class="form-label">Surname</label>
+                        <input type="text" class="form-control" id="surnameFormInput" th:field="*{surname}"
+                               th:maxlength="${@environment.getProperty('input.surname.max.length')}" required/>
+                    </div>
+                    <p th:each="err : ${#fields.errors('surname')}" th:text="${err}" class="error"></p>
+                    <div class="form-group row col-12">
+                        <label for="yourRequestFormInput" class="form-label">Your Request</label>
+                        <textarea th:maxlength="${@environment.getProperty('textarea.max.length')}" type="text"
+                                  class="form-control" id="yourRequestFormInput" rows="8" th:field="*{request}" required
+                                  autofocus></textarea>
+                    </div>
+                    <div id="the-count">
+                        <span id="current">0</span>
+                        <span id="maximum">/ 500</span>
+                    </div>
+                    <p th:each="err : ${#fields.errors('request')}" th:text="${err}" class="error"></p>
+                    <div id="submit-btn" class="me-2 mt-2">
+                        <button type="submit" class="btn btn-default btn btn-primary">SEND REQUEST</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
