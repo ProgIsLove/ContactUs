@@ -32,7 +32,7 @@ The following items should be installed in your system:
     
  3) Open terminal
     ```
-    ${yourPath}/contactUs>mvnw clean install
+    ${yourPath}/contactUs>mvn clean install
     
     ${yourPath}/contactUs>mvn spring-boot:run
     
