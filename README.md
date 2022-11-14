@@ -16,7 +16,7 @@ The following items should be installed in your system:
  
  1) On the command line
     ```
-    git clone https://github.com/ProgIsLove/NHL-webpage.git
+    git clone https://github.com/ProgIsLove/ContactUs.git
     ```
  2) Navigate into application.properties file ->              
     ${yourPath}/contactUs/src/main/resources/application.properties and 
